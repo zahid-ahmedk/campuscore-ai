@@ -1,4 +1,4 @@
-import bcrypt
+﻿import bcrypt
 from database import engine, SessionLocal, Base
 from models import Department, User, Student, FeeRecord, GradeRecord
 from ml_engine import risk_predictor
@@ -34,7 +34,7 @@ def seed_database():
             department_id=None,
         ),
         User(
-            full_name="Dr. Baqar Ali Zardari",
+            full_name="Prof. Suleman Memon",
             email="chairman@campuscore.edu",
             hashed_password=hash_password("chair123"),
             role="chairman",
