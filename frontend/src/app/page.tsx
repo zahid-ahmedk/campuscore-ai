@@ -133,21 +133,28 @@ export default function CampusCoreApp() {
 
   const handleAddStaff = async (e: React.FormEvent, role: "chairman" | "clerk") => {
     e.preventDefault();
-    const res = await fetch(`${API_BASE}/staff`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        full_name: staffName,
-        email: staffEmail,
-        password: staffPassword,
-        role,
-        department_id: Number(staffDeptId),
-      }),
-    });
-    if (res.ok) {
-      setStaffName("");
-      setStaffEmail("");
-      notify(`${role.toUpperCase()} account created!`);
+    try {
+      const res = await fetch(`${API_BASE}/staff`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          full_name: staffName,
+          email: staffEmail,
+          password: staffPassword,
+          role,
+          department_id: Number(staffDeptId),
+        }),
+      });
+      if (res.ok) {
+        setStaffName("");
+        setStaffEmail("");
+        notify(`${role.toUpperCase()} account created!`);
+      } else {
+        const err = await res.json().catch(() => ({}));
+        notify(err.detail || "Email already exists or invalid data");
+      }
+    } catch {
+      notify("Backend server offline — start uvicorn on port 8000");
     }
   };
 
@@ -793,3 +800,4 @@ export default function CampusCoreApp() {
     </div>
   );
 }
+
