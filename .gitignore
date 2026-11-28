@@ -1,8 +1,14 @@
-﻿__pycache__/
+__pycache__/
 *.py[cod]
+.venv/
 venv/
 .env
 *.db
+*.db-wal
+*.db-shm
+backend/uploads/
+backend/risk_model.joblib
+.pytest_cache/
 node_modules/
 .next/
 out/
